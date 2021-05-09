@@ -65,6 +65,13 @@ class EightPuzzle:
             ans = ans // 10
         ans.reverse()
         return ans
+    def is_valid(self,state):
+        return type(state) == list and sorted(state) == sorted(self.end_state)
+class FifteenPuzzle(EightPuzzle):
+    def __init__(self):
+        self.width=4
+        self.size = self.width * self.width -1
+        self.end_state = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,0]
 # @total_ordering
 class node:
     def __init__(self,state, distance, heuristic):
@@ -78,6 +85,9 @@ class node:
             
 
 def general_search(game, heuristic_func, initial_state):
+    if game.is_valid(initial_state) == False:
+        print("invalid input state")
+        return (-1,-1,-1)
     visited = set()
     initial_node = node(initial_state, 0, heuristic_func(initial_state))
     working_queue = []
@@ -86,21 +96,12 @@ def general_search(game, heuristic_func, initial_state):
         current_node = heapq.heappop(working_queue)
         visited.add(game.encode(current_node.state))
         if game.if_end(current_node.state):
-            return True
+            return (True, len(visited),current_node.distance)
         #expand
         next_states = game.get_next(current_node.state)
         for state in next_states:
             if (game.encode(state) in visited):
                 continue
             heapq.heappush(working_queue, node(state, current_node.distance+1,  heuristic_func(state)));
-    return False
+    return (False, len(visited), -1)
 
-
-def main():
-    game = EightPuzzle()
-    initial_state =  [1,2,3,4,5,6,8,7,0]
-    ans = general_search(game, lambda a: 0, initial_state)
-    print(ans)
-
-if __name__ == "__main__":
-    main()
