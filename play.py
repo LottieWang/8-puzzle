@@ -1,6 +1,6 @@
-from Game import EightPuzzle
-from Game import FifteenPuzzle
-from Game import general_search
+from game import EightPuzzle
+from game import FifteenPuzzle
+from game import general_search
 
 def test(game,state):
     print("uniform search: ")
