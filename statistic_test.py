@@ -64,9 +64,9 @@ def statistic(depth_dict):
 
 def main():
     game = EightPuzzle()
-    depth_dict = collect_data(game, 10)
+    depth_dict = collect_data(game, 1000)
     # depth_dict = {29: {786053421: (181062, 90841, 10943)}, 20: {251803746: (62494, 4482, 724)}}
-    print(depth_dict)
+    #print(depth_dict)
     statistic(depth_dict)
     
 
